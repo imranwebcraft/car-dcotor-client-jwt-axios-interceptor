@@ -43,18 +43,26 @@ const AuthProvider = ({ children }) => {
 			if (currentUser) {
 				// get user data use axios to post the user payload
 				axios
-					.post("http://localhost:5000/jwt", loggedUser, {
-						withCredentials: true,
-					})
+					.post(
+						"https://car-doctor-server-adry05l17-imran-it1.vercel.app/jwt",
+						loggedUser,
+						{
+							withCredentials: true,
+						}
+					)
 					.then(res => {
 						console.log(res.data);
 					});
 			} else {
 				// get the user info and use axios to to send user data as Payload
 				axios
-					.post("http://localhost:5000/logout", loggedUser, {
-						withCredentials: true,
-					})
+					.post(
+						"https://car-doctor-server-adry05l17-imran-it1.vercel.app/logout",
+						loggedUser,
+						{
+							withCredentials: true,
+						}
+					)
 					.then(res => {
 						console.log(res.data);
 					});

@@ -4,7 +4,7 @@ import { AuthContext } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-	baseURL: "http://localhost:5000",
+	baseURL: "https://car-doctor-server-adry05l17-imran-it1.vercel.app",
 	withCredentials: true,
 });
 
@@ -15,20 +15,16 @@ const useAxiosSecure = () => {
 	const navigate = useNavigate();
 	// Return created axios instance
 	useEffect(() => {
-		axiosSecure.interceptors.request.use(
-			response => {
-				return response;
+		axiosSecure.interceptors.response.use(
+			res => {
+				console.log(res);
 			},
 			error => {
-				console.log("Error from interceptor", error.responese);
-				if (error.responese.status === 401 || error.responese.status === 403) {
-					logOut()
-						.then(() => {
-							navigate("/login");
-						})
-						.catch(eror => {
-							console.log(eror);
-						});
+				if (error.response.status === 401 || error.response.status === 403) {
+					console.log("Logout the user");
+					logOut().then(() => {
+						navigate("/");
+					});
 				}
 			}
 		);
